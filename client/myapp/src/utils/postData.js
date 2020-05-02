@@ -7,7 +7,7 @@ export default function postData(data) {
   axios
     .post('http://localhost:5000/postData', { data })
     .then((res) => {
-      console.log('fetch succeeded: ' + res.status);
+      console.log('fetch succeeded: ' + res.status, res.data);
     })
     .catch((error) => {
       console.log('fetch fails: ' + error);

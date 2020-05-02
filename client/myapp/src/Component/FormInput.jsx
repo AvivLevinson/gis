@@ -18,7 +18,6 @@ export default function FormInput() {
     console.log(`this is handelSubmit:  ${event.target.url.value}`);
     const value = event.target.url.value;
     postData(value);
-    getData();
   }
 
   return (
