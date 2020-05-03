@@ -4,7 +4,7 @@ const routerData = require('../models/routerData');
 
 var geoip = require('geoip-lite');
 
-exports.trace = async (url) => {
+exports.trace =  (url) => {
   
   try {
     const tracer = new Traceroute();
