@@ -1,8 +1,11 @@
 const Traceroute = require('nodejs-traceroute');
 
-const routerData = require('./routerData');
+const routerData = require('../models/routerData');
 
-const trace = (req, res, next) => {
+var geoip = require('geoip-lite');
+
+exports.trace = async (url) => {
+  
   try {
     const tracer = new Traceroute();
     tracer
@@ -10,22 +13,32 @@ const trace = (req, res, next) => {
         routerData.destination = destination;
       })
       .on('hop', (hop) => {
-        routerData.router.push({
-          hop: hop.hop,
-          ip: hop.ip,
-          latitude: '',
-          longitude: '',
-        });
+        let geo = geoip.lookup(hop.ip);
+        if (geo === null) {
+          routerData.router.push({
+            hop: hop.hop,
+            ip: hop.ip,
+            latitude: '',
+            longitude: '',
+          });
+        } else {
+          routerData.router.push({
+            hop: hop.hop,
+            ip: hop.ip,
+            latitude: geo.ll[0],
+            longitude: geo.ll[1],
+          });
+        }
       })
       .on('close', (code) => {
+        routerData.router.forEach((value) => {
+          console.log(JSON.stringify(value));
+        });
         console.log(`close: code ${code}`);
-        routerData = JSON.stringify(routerData);
-        console.log(routerData);
       });
 
-    tracer.trace(req.body.url);
+    tracer.trace('www.google.co.il');
   } catch (error) {
     console.log('this is error from traceroute:' + error);
   }
 };
-module.exports = trace;

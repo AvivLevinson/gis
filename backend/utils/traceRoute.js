@@ -1,3 +1,6 @@
+/*
+
+
 let exec = require('child_process').exec;
 
 let RE_IPV4 = /((25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9]).){3,3}(25[0-5]|(2[0-4]|1{0,1}[0-9]){0,1}[0-9])/;
@@ -20,13 +23,13 @@ function exeTraceRoute() {
       console.log(item);
     });*/
 
-    /*
+/*
     loop the value in the data, each Iterator make the flow steps:
     - trim : delete space at start and end string 
     - split: split the string by " " (space), the result is array that contine strings
     - filter: filter by REX that represent ipv4 pattern
     - push the result to stack, every index in the stack hold object
-    */
+    
 
     data.forEach((item) => {
       let arr;
@@ -54,3 +57,4 @@ function exeTraceRoute() {
 }
 
 module.exports = exeTraceRoute;
+*/
