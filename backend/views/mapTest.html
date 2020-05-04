@@ -23,59 +23,33 @@
 ></script>
 <script src="https://unpkg.com/leaflet" type="text/javascript"></script>
 <script src="https://unpkg.com/leaflet-ant-path" type="text/javascript"></script>
-<link rel="stylesheet" href="/css/leafletMap.css">
-  </head>
+<style>
+  #mapid {
+  height: 400px;
+  width: 800px;
+  margin: 0 auto;
+  border: 2px solid rgba(28, 110, 164, 0.15);
+  position: relative;
+  top: 120px;
+}
+</style>
+</head>
   <body>
 
 
 
 
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-8">Gis - geographic information system</h1>
-        <p class="lead">
-          this project implement traceRoute network command. using leafet.js
-          library to show the trace of the request.
-        </p>
-      </div>
-    </div>
- 
     <div id="mapid"></div>
 
   
 <script>
-  let obj;
-      (async function () {
-        let response = await fetch('http://localhost:5000/admin/getJsonData');
-        console.log('test fetch');
 
-        if (response.ok) {
-          console.log('this is res:' + response);
-          let myJson = response.json().then((data)=>{
-            leafletMap(data);
-          });
-          
-        }
-        
-      })();
-
-
-
+data = {"destination":"172.217.18.163","router":[{"hop":1,"ip":"192.168.1.1","latitude":"","longitude":""},{"hop":2,"ip":"10.17.100.12","latitude":"","longitude":""},{"hop":3,"ip":"10.17.110.169","latitude":"","longitude":""},{"hop":4,"ip":"10.17.110.90","latitude":"","longitude":""},{"hop":5,"ip":"10.17.111.11","latitude":"","longitude":""},{"hop":6,"ip":"10.17.111.9","latitude":"","longitude":""},{"hop":7,"ip":"10.17.111.65","latitude":"","longitude":""},{"hop":8,"ip":"10.17.101.1","latitude":"","longitude":""},{"hop":9,"ip":"31.210.191.9","latitude":31.7808,"longitude":35.2287},{"hop":10,"ip":"141.226.65.15","latitude":31.5,"longitude":34.75},{"hop":11,"ip":"108.170.231.235","latitude":37.751,"longitude":-97.822},{"hop":12,"ip":"74.125.37.167","latitude":37.751,"longitude":-97.822},{"hop":13,"ip":"172.217.18.163","latitude":37.751,"longitude":-97.822}]}
+console.log(data.router[0].ip);
+leafletMap(data);
 
 function leafletMap(data){
-
-
-
-
-
-
-
-
-
-
-
-
-var map = L.map('mapid').setView([51.505, -0.09], 13);
+var map = L.map('mapid').setView([37.751, -97.822], 8);
 L.tileLayer(
   'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
   {
@@ -98,12 +72,12 @@ let latlngs = [
 
 
 
-L.marker(latlngs).addTo(map);
+latlngs.map((value)=>{
+  let counter = 0;
+  L.marker(value).addTo(map).bindPopup(`POP UOP: ${counter}`);
+  counter++;
 
-
-let userLocation = navigator.geolocation.getCurrentPosition();
-let userLatitude = userLocation.coords.latitude;
-let userLongitude = userLocation.coords.longitude;
+})
 
 
 
