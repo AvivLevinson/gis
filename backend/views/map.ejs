@@ -44,10 +44,101 @@
 
   
 <script>
-  let obj;
+ 
+
+   function fetchData (){
+  
+    return new Promise((resolve, reject)=>{ 
+     fetch('http://localhost:5000/admin/getJsonData')
+    .then(res => res.json())
+    .then((data)=>{
+      console.log('fetch data');
+      return resolve(data);
+    });
+    });
+  }
+  async function mapLealet(){
+    let data = await fetchData();
+    console.log('after fetch');
+    console.log('this is data from map leaflet:' +  JSON.stringify(data));
+    const routerData = data
+    console.log(routerData);
+    console.log(typeof routerData);
+     var map = createMap();
+     createMarker(map,routerData);
+  }
+
+
+
+
+mapLealet();
+
+
+
+function createMap(){
+
+  var map = L.map('mapid',{scrollWheelZoom:false}).setView([37.751, -97.822], 1).setMinZoom(1).setMaxZoom(12);
+  L.tileLayer(
+  'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
+  {
+    maxZoom: 18,
+    attribution:
+      'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+      '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+      'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    id: 'mapbox/streets-v11',
+    tileSize: 512,
+    zoomOffset: -1,
+  }
+).addTo(map);
+
+return map;
+
+
+}
+
+
+function createAnimatied(map,arr){
+console.log('animatied');
+const options = { use: L.polyline, delay: 27, dashArray: [7,31], weight: 4, color: "#FFFFFF", pulseColor: "#040404",hardwareAccelerated: true };
+const path = L.polyline.antPath(arr, options);
+path.addTo(map);
+
+}
+
+function createMarker(map,routerData){
+  //console.log('routerData from popup:' + routerData);
+  let arr = [];
+
+  routerData.router.filter((value)=>{
+  return value.latitude !== "";
+}).forEach((value)=>{
+  console.log(value);
+  var text = `hop:${value.hop}<br>ip:${value.ip}<br>latitude:${value.latitude}, longitude:${value.longitude}`
+  arr.push([value.latitude,value.longitude]);
+  L.marker([value.latitude,value.longitude]).bindPopup(text).addTo(map);
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+createAnimatied(map,arr);
+
+}
+
+/*
       (async function () {
+        var obj;
         let response = await fetch('http://localhost:5000/admin/getJsonData');
-        console.log('test fetch');
 
         if (response.ok) {
           console.log('this is res:' + response);
@@ -61,19 +152,7 @@
 
 
 
-
 function leafletMap(data){
-
-
-
-
-
-
-
-
-
-
-
 
 var map = L.map('mapid').setView([51.505, -0.09], 13);
 L.tileLayer(
@@ -90,32 +169,34 @@ L.tileLayer(
   }
 ).addTo(map);
 
+let arr = [];
 let latlngs = [
-    [37.751, -97.822],
-    [37.77, -122.43],
-    [34.04, -118.2]
+    {latlng:[31.7808, 35.2287], hop:'1'},
+    {latlng:[31.5, 34.75], hop:'2'},
+    {latlng:[37.751, -97.822], hop: '3'},
+    {latlng:[37.751, -96], hop: '4'},
+    {latlng:[80.751, -97.822], hop: '5'}
 ];
 
 
 
-L.marker(latlngs).addTo(map);
 
 
-let userLocation = navigator.geolocation.getCurrentPosition();
-let userLatitude = userLocation.coords.latitude;
-let userLongitude = userLocation.coords.longitude;
-
-
+latlngs.forEach((value)=>{
+  arr.push(value.latlng);
+  L.marker(value.latlng).bindPopup(value.hop).addTo(map);
+});
 
 
 const options = { use: L.polyline, delay: 27, dashArray: [7,31], weight: 4, color: "#FFFFFF", pulseColor: "#040404",hardwareAccelerated: true };
-const path = L.polyline.antPath(latlngs, options);
+const path = L.polyline.antPath(arr, options);
 path.addTo(map);
 
 
 
 
 }
+*/
 
 </script>
 
