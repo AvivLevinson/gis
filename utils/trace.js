@@ -13,6 +13,7 @@ exports.trace = (url) => {
           routerData.destination = destination;
         })
         .on('hop', (hop) => {
+          console.log('on treace route');
           let geo = geoip.lookup(hop.ip);
           if (geo === null) {
             routerData.router.push({

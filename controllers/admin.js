@@ -13,6 +13,7 @@ const p = path.join(
 );
 
 exports.execTrace = (req, res, next) => {
+  console.log('exeTrace');
   let url = req.body.url.split('https://')[1];
 
   utilsFunction
@@ -35,6 +36,7 @@ exports.execTrace = (req, res, next) => {
 };
 
 exports.getJsonData = (req, res, next) => {
+  console.log('Json');
   fs.readFile(p, (err, fileContent) => {
     if (!err) {
       console.log('res.json');
