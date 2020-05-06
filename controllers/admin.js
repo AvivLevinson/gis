@@ -32,7 +32,7 @@ exports.execTrace = (req, res, next) => {
         });
       });
     })
-    .catch((err) => console.log(err));
+    .catch((err) => console.log('this is error from admin router' + err));
 };
 
 exports.getJsonData = (req, res, next) => {
