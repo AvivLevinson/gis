@@ -36,12 +36,15 @@ exports.execTrace = (req, res, next) => {
 };
 
 exports.getJsonData = (req, res, next) => {
+  /*
   console.log('Json');
   fs.readFile(p, (err, fileContent) => {
     if (!err) {
       console.log('res.json');
       fileContent = JSON.parse(fileContent);
-      res.json(fileContent);
+      res.status(200).json(fileContent);
     }
   });
+  */
+ res.status(200).json("aviv");
 };
