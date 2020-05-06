@@ -33,16 +33,54 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-8">Gis - geographic information system</h1>
-        <p class="lead">
-          this project implement traceRoute network command. using leafet.js
-          library to show the trace of the request.
+        <p class="lead text-secondary">
+          This project implement traceRoute network command,
+          and displays the path on a map.
         </p>
       </div>
     </div>
  
-    <div id="mapid"></div>
+    <% if(showtable) { %>
+      <div class= "container">
+      <table class="table table-hover table-bordered table-sm table-striped">
+        <thead>
+          <tr class="text-center" >
+            <th scope="col">row</th>
+            <th scope="col">hop</th>
+            <th scope="col">ip</th>
+            <th scope="col">latitude</th>
+            <th scope="col">longitude</th>
+          </tr>
+        </thead>
+        <tbody> 
+          <% routerData.router.forEach((value,index)=>{ %>
+          
+          <% if(value.latitude ==="") {%>
+          <tr class="table-info text-center">
+            <th scope="row"><%=index+1 %></th>
+            <td><%= value.hop %></td>
+            <td><%=value.ip%></td>             
+            <td >Could not identify</td>
+            <td>Could not identify</td>
+            <% } else {%>
+              <tr class="text-center">
+                <th scope="row"><%=index+1 %></th>
+                <td><%= value.hop %></td>
+                <td><%=value.ip%></td>             
+                <td ><%=value.latitude%></td>
+                <td><%=value.longitude%></td>
+            
 
-  
+            
+            <% } %>
+          </tr>
+   
+        <% }) %>
+        </tbody>
+      </table>
+    </div>
+      <% } %>
+      <div id="mapid" class= "container "></div>
 <script>
  
 
@@ -77,7 +115,7 @@ mapLealet();
 
 function createMap(){
 
-  var map = L.map('mapid',{scrollWheelZoom:false}).setView([37.751, -97.822], 1).setMinZoom(1).setMaxZoom(12);
+  var map = L.map('mapid',{scrollWheelZoom:false}).setView([37.751, -97.822], 2).setMinZoom(1).setMaxZoom(12);
   L.tileLayer(
   'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
   {

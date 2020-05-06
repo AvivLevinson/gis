@@ -26,20 +26,74 @@
 
 <style>
   #mapid {
-  height: 400px;
-  width: 1000px;
+  height: 500px;
+  width: 1100px;
   margin: 0 auto;
+  margin-bottom: 5rem;
   border: 2px solid rgba(28, 110, 164, 0.15);
   position: relative;
   top: 120px;
 }
+
+#table{
+
+
+
+}
 </style>
 </head>
   <body>
+    <div class="jumbotron jumbotron-fluid">
+      <div class="container">
+        <h1 class="display-8">Gis - geographic information system</h1>
+        <p class="lead text-secondary">
+          This project implement traceRoute network command,
+          and displays the path on a map.
+        </p>
+      </div>
+    </div>
+    <div class= "container ">
+    <table class="table table-hover table-bordered table-sm table-striped">
+      <thead>
+        <tr class="text-center">
+          <th cscope="col">#</th>
+          <th scope="col">First</th>
+          <th scope="col">Last</th>
+          <th scope="col">Handle</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center">
+          <th scope="row">1</th>
+          <td>Mark</td>
+          <td>Otto</td>
+          <td>@mdo</td>
+        </tr>
+        <tr class="text-center">
+          <th scope="row">2</th>
+          <td>Jacob</td>
+          <td>Thornton</td>
+          <td>@fat</td>
+        </tr>
+        <tr class="text-center">
+          <th scope="row">3</th>
+          <td>Larry</td>
+          <td>the Bird</td>
+          <td>@twitter</td>
+        </tr>
+      </tbody>
+    </table>
+      <div id="mapid" class= "container "></div>
+      
+      
+    
+
+      
 
 
 
-    <div id="mapid"></div>
+
+    
 
 
   
@@ -70,7 +124,7 @@ leafletMap(data);
 
 function leafletMap(data){
 
-var map = L.map('mapid',{scrollWheelZoom:false}).setView([37.751, -97.822], 1).setMinZoom(1).setMaxZoom(12);
+var map = L.map('mapid',{scrollWheelZoom:false}).setView([37.751, -97.822], 2).setMinZoom(1).setMaxZoom(12);
 L.tileLayer(
   'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
   {

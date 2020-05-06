@@ -25,7 +25,10 @@ exports.execTrace = (req, res, next) => {
           console.log(err);
         }
         console.log('The file was saved!');
-        res.render('map');
+        res.render('map',{
+          showtable: true,
+          routerData:Data,
+        });
       });
     })
     .catch((err) => console.log(err));

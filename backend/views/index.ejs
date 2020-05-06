@@ -16,17 +16,36 @@
     <div class="jumbotron jumbotron-fluid">
       <div class="container">
         <h1 class="display-8">Gis - geographic information system</h1>
-        <p class="lead">
-          this project implement traceRoute network command. using leafet.js
-          library to show the trace of the request.
+        <p class="lead text-secondary">
+          This project implement traceRoute network command, and displays the
+          path on a map.
         </p>
       </div>
     </div>
 
-    <form action="/admin/postData" method="POST">
+    <form id="form" action="/admin/postData" method="POST">
       <input type="url" value="https://" name="url" />
-      <button type="submit">Trace Route</button>
+      <button id="submit" type="submit">Trace Route</button>
     </form>
+    <div class="d-flex justify-content-center">
+      <div
+        id="loading"
+        class="spinner-border"
+        style="width: 8rem; height: 8rem; display: none; text-align: center;"
+        role="status"
+      >
+        <span class="sr-only">Loading Map</span>
+      </div>
+    </div>
 
+    <script type="text/javascript">
+      (function (d) {
+        d.getElementById('form').onsubmit = function () {
+          d.getElementById('form').style.display = 'none';
+          d.getElementById('submit').style.display = 'none';
+          d.getElementById('loading').style.display = 'block';
+        };
+      })(document);
+    </script>
   </body>
 </html>
