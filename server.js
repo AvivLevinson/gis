@@ -21,6 +21,10 @@ app.use(cors());
 
 app.use('/admin', adminRoutes);
 
+app.use('/get',(req,res,next)=>{
+  res.status(200).json('aviv');
+});
+
 app.get('/', homeRouter);
 
 let port = process.env.PORT;

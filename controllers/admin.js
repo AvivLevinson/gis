@@ -36,7 +36,7 @@ exports.execTrace = (req, res, next) => {
 };
 
 exports.getJsonData = (req, res, next) => {
-  /*
+  
   console.log('Json');
   fs.readFile(p, (err, fileContent) => {
     if (!err) {
@@ -45,6 +45,5 @@ exports.getJsonData = (req, res, next) => {
       res.status(200).json(fileContent);
     }
   });
-  */
- res.status(200).json("aviv");
+  
 };
